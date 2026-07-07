@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نور الولاية · كتاب من الخميس إلى الجمعة</title>
+    <!-- خطوط أنيقة + أيقونات -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lateef:wght@400;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ---------- إعادة تعيين و متغيرات ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #004d26;
+            --primary-medium: #1a5f23;
+            --primary-light: #2e7d32;
+            --accent-gold: #c9a845;
+            --accent-light: #f5f0e1;
+            --card-bg: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-medium: #444444;
+            --text-light: #666666;
+            --shadow-soft: 0 12px 30px -8px rgba(0, 40, 20, 0.18);
+            --transition: 0.25s ease;
+        }
+
+        body {
+            font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+            background-color: #fcfcfc;
+            color: var(--text-dark);
+            line-height: 1.7;
+            padding: 16px 10px;
+            background-image: radial-gradient(#e8f5e9 1px, transparent 1px);
+            background-size: 24px 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 12px;
+        }
+
+        /* ---------- هيدر ---------- */
+        header {
+            text-align: center;
+            margin-bottom: 18px;
+            padding: 12px 0 6px;
+            opacity: 0;
+            animation: fadeDown 0.5s ease-out 0.05s forwards;
+        }
+
+        @keyframes fadeDown {
+            0% { opacity: 0; transform: translateY(-12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .site-title {
+            color: var(--primary-dark);
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .site-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            animation: lineExpand 0.7s ease-out 0.2s forwards;
+        }
+
+        @keyframes lineExpand {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        .site-subtitle {
+            color: var(--text-medium);
+            font-size: 1.3rem;
+            font-family: 'Lateef', cursive;
+            margin-top: 14px;
+            opacity: 0;
+            animation: fadeUp 0.5s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- بطاقة الكتاب (أساسية) ---------- */
+        .book-card {
+            background: var(--card-bg);
+            border-radius: 32px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(0, 77, 38, 0.06);
+            overflow: hidden;
+            margin: 20px 0 28px;
+            transition: box-shadow 0.2s;
+            opacity: 0;
+            animation: cardFade 0.5s ease-out 0.15s forwards;
+        }
+
+        @keyframes cardFade {
+            0% { opacity: 0; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .book-header {
+            background: linear-gradient(145deg, var(--primary-dark), var(--primary-medium));
+            padding: 28px 25px 22px;
+            color: white;
+            text-align: center;
+        }
+
+        .book-header h2 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .book-header .book-sub {
+            font-size: 1.35rem;
+            opacity: 0.9;
+            font-weight: 400;
+            color: var(--accent-light);
+            font-family: 'Lateef', cursive;
+        }
+
+        /* ----- محتوى البطاقة (مرن) ----- */
+        .book-body {
+            padding: 28px 30px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .book-cover {
+            flex: 0 0 190px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            background: #f0f3f0;
+            transition: transform 0.2s;
+            border: 1px solid rgba(0, 77, 38, 0.05);
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            background: #d4ded4;
+        }
+
+        .book-info {
+            flex: 1;
+            min-width: 170px;
+        }
+
+        .book-info .book-name {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            border-bottom: 3px solid var(--accent-gold);
+            display: inline-block;
+            padding-bottom: 3px;
+            margin-bottom: 12px;
+        }
+
+        .book-description {
+            font-size: 1.2rem;
+            line-height: 1.85;
+            color: var(--text-medium);
+            margin: 14px 0 22px;
+            text-align: justify;
+        }
+
+        /* ---------- شريط التحميل (مُوسَّع) ---------- */
+        .download-section {
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: linear-gradient(135deg, var(--primary-medium), var(--primary-dark));
+            color: white;
+            padding: 18px 44px;
+            border-radius: 60px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 8px 22px rgba(26, 95, 35, 0.25);
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.4px;
+            flex: 1 1 auto;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .download-btn i {
+            font-size: 1.6rem;
+            transition: transform 0.2s;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 14px 32px rgba(26, 95, 35, 0.35);
+        }
+
+        .download-btn:hover i {
+            transform: translateY(-2px) scale(1.06);
+        }
+
+        .download-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 12px rgba(26, 95, 35, 0.2);
+        }
+
+        /* ---------- تذييل ---------- */
+        footer {
+            text-align: center;
+            margin-top: 28px;
+            padding: 18px 10px 10px;
+            color: var(--text-light);
+            border-top: 1px solid rgba(0, 77, 38, 0.06);
+            opacity: 0;
+            animation: fadeUp 0.5s ease-out 0.35s forwards;
+        }
+
+        .prayer {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .badge-note {
+            margin-top: 8px;
+            font-size: 1.05rem;
+            background: #f4f8f4;
+            display: inline-block;
+            padding: 6px 28px;
+            border-radius: 40px;
+            color: var(--text-medium);
+        }
+
+        .badge-note i {
+            margin-left: 8px;
+            color: var(--primary-medium);
+        }
+
+        /* ---------- استجابة سلسة ---------- */
+        @media (max-width: 768px) {
+            .site-title { font-size: 2.5rem; }
+            .book-header h2 { font-size: 2rem; }
+            .book-body { flex-direction: column; align-items: center; padding: 22px 18px; }
+            .book-cover { flex: 0 0 160px; width: 160px; }
+            .book-info .book-name { font-size: 1.9rem; }
+            .book-description { font-size: 1.15rem; }
+            .download-btn { padding: 16px 32px; font-size: 1.3rem; min-width: 170px; }
+        }
+
+        @media (max-width: 480px) {
+            .site-title { font-size: 2.2rem; }
+            .book-header h2 { font-size: 1.7rem; }
+            .book-body { padding: 18px 12px; gap: 18px; }
+            .book-cover { flex: 0 0 140px; width: 140px; }
+            .book-info .book-name { font-size: 1.6rem; }
+            .book-description { font-size: 1.1rem; }
+            .download-btn { padding: 14px 24px; font-size: 1.15rem; gap: 10px; min-width: 150px; }
+            .prayer { font-size: 1.2rem; }
+        }
+#b {color : red;}
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1 class="site-title">نور الولاية</h1>
+    </header>
+
+    <!-- بطاقة الكتاب الرئيسية -->
+    <div class="book-card">
+        <div class="book-header">
+            <h2> من الخميس إلى الجمعة</h2>
+                   </div>
+        <div class="book-body">
+            <div class="book-cover">
+                <!-- صورة الكتاب (يمكنك تبديل الرابط بصورة حقيقية) -->
+                <img src="kitab.jpeg" alt="غلاف كتاب من الخميس إلى الجمعة" />
+            </div>
+            <div class="book-info">
+                <div class="book-name">عن ماذا يتحدث هذا الكتاب ؟</div>
+                <p class="book-description">
+                 كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب السنة النبوية (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامرة محكمة، بدأت بعصيان أمر النبي في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
+
+                <!-- شريط التحميل الموسع -->
+                <div class="download-section">
+                    <a href="#" class="download-btn" download>
+                        <i class="fas fa-download"></i> تحميل الكتاب
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="prayer">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَآلِ مُحَمَّدٍ</p>
+        <div class="badge-note">
+            <i class="fas fa-book-open"></i>
+            نور الولاية · كتاب من الخميس إلى الجمعة
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>
