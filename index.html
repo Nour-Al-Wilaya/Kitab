@@ -22,13 +22,13 @@
             --primary-medium: #1a5f23;
             --primary-light: #2e7d32;
             --accent-gold: #c9a845;
-            --accent-light: #f5f0e1;
             --card-bg: #ffffff;
             --text-dark: #1a1a1a;
             --text-medium: #444444;
             --text-light: #666666;
             --shadow-soft: 0 12px 30px -8px rgba(0, 40, 20, 0.18);
             --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+            --bloody-red: #8b0000;
         }
 
         body {
@@ -44,58 +44,18 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* لمنع السكرول أثناء شاشة التحميل */
         }
 
-        /* ---------- أنيميشن شاشة الفتح الاحترافية ---------- */
-        #splash-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: radial-gradient(circle at center, #003319 0%, #001f0f 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.8s;
-        }
-
-        .splash-logo {
-            color: var(--accent-gold);
-            font-size: 3.5rem;
-            font-weight: bold;
-            font-family: 'Amiri', serif;
-            opacity: 0;
-            transform: scale(0.9);
-            animation: splashPop 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
-            text-shadow: 0 0 20px rgba(201, 168, 69, 0.3);
-        }
-
-        .splash-loader {
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-            margin-top: 20px;
-            transform: scaleX(0);
-            animation: loaderGrow 1.2s ease-in-out 0.4s forwards;
-        }
-
-        @keyframes splashPop {
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes loaderGrow {
-            100% { transform: scaleX(1); }
-        }
-
-        /* اخفاء شاشة الفتح */
-        #splash-screen.fade-out {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
+        /* ---------- أنيميشن دخول مريح للعين ---------- */
+        @keyframes smoothPageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ---------- حاوية المحتوى الرئيسي ---------- */
@@ -104,15 +64,7 @@
             width: 100%;
             margin: 0 auto;
             padding: 0 12px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s var(--transition-smooth), transform 1s var(--transition-smooth);
-        }
-
-        /* ظهور المحتوى بعد انتهاء شاشة الفتح */
-        .container.show {
-            opacity: 1;
-            transform: translateY(0);
+            animation: smoothPageEnter 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         /* ---------- هيدر ---------- */
@@ -131,22 +83,18 @@
             position: relative;
         }
 
-        /* أنيميشن الخط الذهبي عند الفتح */
+        /* الشريط الذهبي: تم تطويله وجعل الحركة أبطأ */
         .site-title::after {
             content: '';
             position: absolute;
             bottom: -4px;
-            right: -25px;
-            left: -25px;
+            right: -35px;
+            left: -35px;
             height: 3px;
             background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
             transform: scaleX(0);
             transform-origin: center;
-            will-change: transform;
-        }
-
-        .container.show .site-title::after {
-            animation: lineExpand 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+            animation: lineExpand 1.8s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards;
         }
 
         @keyframes lineExpand {
@@ -193,31 +141,32 @@
         }
 
         .book-cover {
-            flex: 0 0 260px;
+            flex: 0 0 320px;
+            max-width: 100%;
             border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-            background: #f0f3f0;
-            border: 1px solid rgba(0, 77, 38, 0.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            background: #ffffff;
+            border: 1px solid rgba(0, 77, 38, 0.08);
             transition: transform 0.4s var(--transition-smooth);
-            will-change: transform;
+            margin: 0 auto;
         }
 
         .book-card:hover .book-cover {
-            transform: scale(1.03) ;
+            transform: scale(1.02);
         }
 
         .book-cover img {
             width: 100%;
             height: auto;
+            max-height: 480px;
             display: block;
             object-fit: contain;
-            background: #d4ded4;
         }
 
         .book-info {
             flex: 1;
-            min-width: 170px;
+            min-width: 280px;
         }
 
         .book-info .book-name {
@@ -238,53 +187,68 @@
             text-align: justify;
         }
 
-        /* ---------- شريط التحميل ---------- */
-        .download-section {
-            margin-top: 6px;
+        /* العبارة باللون الدموي */
+        #b {
+            color: var(--bloody-red);
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        /* ---------- شريط الأزرار ---------- */
+        .action-buttons {
+            margin-top: 10px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 18px;
+            gap: 14px;
         }
 
-        .download-btn {
+        .btn {
             display: inline-flex;
             align-items: center;
-            gap: 14px;
-            background: linear-gradient(135deg, var(--primary-medium), var(--primary-dark));
-            color: white;
-            padding: 18px 44px;
-            border-radius: 60px;
-            font-size: 1.5rem;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 1.25rem;
             font-weight: 600;
             text-decoration: none;
-            transition: transform 0.3s var(--transition-smooth), box-shadow 0.3s var(--transition-smooth), background 0.3s;
-            box-shadow: 0 8px 22px rgba(26, 95, 35, 0.25);
-            border: none;
+            transition: transform 0.3s var(--transition-smooth), box-shadow 0.3s var(--transition-smooth), background 0.3s, color 0.3s;
             cursor: pointer;
-            letter-spacing: 0.4px;
-            flex: 1 1 auto;
-            min-width: 200px;
+            flex: 1 1 180px;
             justify-content: center;
-            will-change: transform;
         }
 
-        .download-btn i {
-            font-size: 1.6rem;
-            transition: transform 0.3s var(--transition-smooth);
+        /* زر تحميل الكتاب */
+        .btn-download {
+            background: linear-gradient(135deg, var(--primary-medium), var(--primary-dark));
+            color: white;
+            box-shadow: 0 6px 18px rgba(26, 95, 35, 0.25);
+            border: none;
         }
 
-        .download-btn:hover {
+        .btn-download:hover {
             background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
-            transform: translateY(-3px);
-            box-shadow: 0 14px 32px rgba(26, 95, 35, 0.35);
-        }
-
-        .download-btn:hover i {
             transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(26, 95, 35, 0.35);
         }
 
-        .download-btn:active {
+        /* زر تصفح الكتاب (أبيض بحواف خضراء) */
+        .btn-browse {
+            background: #ffffff;
+            color: var(--primary-dark);
+            border: 2px solid var(--primary-dark);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-browse:hover {
+            background: var(--primary-dark);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 77, 38, 0.2);
+        }
+
+        .btn:active {
             transform: scale(0.97);
         }
 
@@ -322,36 +286,32 @@
         /* ---------- استجابة سلسة ---------- */
         @media (max-width: 768px) {
             .site-title { font-size: 2.5rem; }
+            .site-title::after { right: -25px; left: -25px; }
             .book-header h2 { font-size: 2rem; }
             .book-body { flex-direction: column; align-items: center; padding: 22px 18px; }
-            .book-cover { flex: 0 0 220px; width: 220px; }
+            .book-cover { flex: 0 0 auto; width: 100%; max-width: 280px; }
             .book-info .book-name { font-size: 1.9rem; }
             .book-description { font-size: 1.15rem; }
-            .download-btn { padding: 16px 32px; font-size: 1.3rem; min-width: 170px; }
+            .btn { padding: 13px 22px; font-size: 1.15rem; }
             .book-card:hover { transform: none; }
             .book-card:hover .book-cover { transform: none; }
         }
 
         @media (max-width: 480px) {
             .site-title { font-size: 2.2rem; }
+            .site-title::after { right: -20px; left: -20px; }
             .book-header h2 { font-size: 1.7rem; }
             .book-body { padding: 18px 12px; gap: 18px; }
-            .book-cover { flex: 0 0 180px; width: 180px; }
+            .book-cover { flex: 0 0 auto; width: 100%; max-width: 240px; }
             .book-info .book-name { font-size: 1.6rem; }
             .book-description { font-size: 1.1rem; }
-            .download-btn { padding: 14px 24px; font-size: 1.15rem; gap: 10px; min-width: 150px; }
+            .action-buttons { flex-direction: column; }
+            .btn { width: 100%; }
             .prayer { font-size: 1.2rem; }
         }
-        #b {color : red;}
     </style>
 </head>
 <body>
-
-<!-- شاشة الفتح الاحترافية المدعومة بالأنيميشن -->
-<div id="splash-screen">
-    <div class="splash-logo">نور الولاية</div>
-    <div class="splash-loader"></div>
-</div>
 
 <div class="container" id="main-content">
 
@@ -362,7 +322,7 @@
     <!-- بطاقة الكتاب الرئيسية -->
     <div class="book-card">
         <div class="book-header">
-            <h2> من الخميس إلى الجمعة</h2>
+            <h2>من الخميس إلى الجمعة</h2>
         </div>
         <div class="book-body">
             <div class="book-cover">
@@ -370,12 +330,17 @@
             </div>
             <div class="book-info">
                 <div class="book-name">عن ماذا يتحدث هذا الكتاب ؟</div>
-                <p class="book-description">
-                 كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب السنة النبوية (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامرة محكمة، بدأت بعصيان أمر النبي في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
-                <!-- شريط التحميل الموسع -->
-                <div class="download-section">
-                    <a href="من الخميس إلى الجمعة.pdf" class="download-btn" download="من الخميس إلى الجمعة.pdf">
+               <p class="book-description">
+                 كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب أهل السنة  (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامرة محكمة، بدأت بعصيان أمر النبي صلى الله عليه وآله وسلم في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت عليهم السلام ، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
+
+                
+                <!-- أزرار الإجراءات -->
+                <div class="action-buttons">
+                    <a href="من الخميس إلى الجمعة.pdf" class="btn btn-download" download="من الخميس إلى الجمعة.pdf">
                         <i class="fas fa-download"></i> تحميل الكتاب
+                    </a>
+                    <a href="من الخميس إلى الجمعة.pdf" class="btn btn-browse" target="_blank">
+                        <i class="fas fa-book-open"></i> تصفح الكتاب
                     </a>
                 </div>
             </div>
@@ -391,21 +356,6 @@
     </footer>
 
 </div>
-
-<!-- سكربت التحكم بشاشة الفتح لمنع الـ Lag وضمان السلاسة -->
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-            const splash = document.getElementById('splash-screen');
-            const content = document.getElementById('main-content');
-            
-            // إخفاء شاشة التحميل وإظهار الموقع بسلاسة
-            splash.classList.add('fade-out');
-            content.classList.add('show');
-            document.body.style.overflow = 'auto';
-        }, 1600); // مدة عرض أنيميشن الفتح (ثانية ونصف تقريباً)
-    });
-</script>
 
 </body>
 </html>
