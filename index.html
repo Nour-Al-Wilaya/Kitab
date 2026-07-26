@@ -15,6 +15,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
@@ -29,6 +30,7 @@
             --shadow-soft: 0 12px 30px -8px rgba(0, 40, 20, 0.18);
             --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
             --bloody-red: #8b0000;
+            --bloody-red-light: #b30000;
         }
 
         body {
@@ -46,15 +48,15 @@
             justify-content: center;
         }
 
-        /* ---------- أنيميشن دخول مريح للعين ---------- */
-        @keyframes smoothPageEnter {
+        /* ---------- أنيميشن دخول لطيف جداً ---------- */
+        @keyframes gentleFadeUp {
             from {
                 opacity: 0;
-                transform: translateY(18px);
+                transform: translateY(25px) scale(0.98);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -64,7 +66,7 @@
             width: 100%;
             margin: 0 auto;
             padding: 0 12px;
-            animation: smoothPageEnter 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: gentleFadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         /* ---------- هيدر ---------- */
@@ -83,7 +85,7 @@
             position: relative;
         }
 
-        /* الشريط الذهبي: تم تطويله وجعل الحركة أبطأ */
+        /* الشريط الذهبي */
         .site-title::after {
             content: '';
             position: absolute;
@@ -101,16 +103,30 @@
             100% { transform: scaleX(1); }
         }
 
-        /* ---------- بطاقة الكتاب ---------- */
+        /* ---------- بطاقة الكتاب مع زخرفة إسلامية ---------- */
         .book-card {
             background: var(--card-bg);
-            border-radius: 32px;
+            border-radius: 28px;
             box-shadow: var(--shadow-soft);
-            border: 1px solid rgba(0, 77, 38, 0.06);
+            border: 2px solid var(--accent-gold);
             overflow: hidden;
             margin: 20px 0 28px;
+            position: relative;
             transition: transform 0.4s var(--transition-smooth), box-shadow 0.4s var(--transition-smooth);
         }
+
+        /* زوايا زخرفية إسلامية للبطاقة */
+        .book-card::before, .book-card::after {
+            content: "❖";
+            position: absolute;
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            z-index: 2;
+            opacity: 0.85;
+            pointer-events: none;
+        }
+        .book-card::before { top: 8px; right: 12px; }
+        .book-card::after { top: 8px; left: 12px; }
 
         .book-card:hover {
             transform: translateY(-4px);
@@ -122,6 +138,7 @@
             padding: 28px 25px 22px;
             color: white;
             text-align: center;
+            position: relative;
         }
 
         .book-header h2 {
@@ -187,69 +204,83 @@
             text-align: justify;
         }
 
-        /* العبارة باللون الدموي */
+        /* تأثير تحويم ناعم ولطيف للعبارة الدموية */
         #b {
             color: var(--bloody-red);
             font-size: 1.3rem;
             line-height: 1.6;
             margin-top: 15px;
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        #b:hover {
+            color: var(--bloody-red-light);
+            text-shadow: 0 0 12px rgba(139, 0, 0, 0.25);
+            background: rgba(139, 0, 0, 0.03);
+            transform: translateY(-1px);
         }
 
         /* ---------- شريط الأزرار ---------- */
         .action-buttons {
-            margin-top: 10px;
+            margin-top: 15px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
+            animation: gentleFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-size: 1.25rem;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 1.05rem;
             font-weight: 600;
             text-decoration: none;
-            transition: transform 0.3s var(--transition-smooth), box-shadow 0.3s var(--transition-smooth), background 0.3s, color 0.3s;
+            transition: all 0.3s var(--transition-smooth);
             cursor: pointer;
-            flex: 1 1 180px;
-            justify-content: center;
+            flex: 1 1 140px;
+            user-select: none;
         }
 
         /* زر تحميل الكتاب */
         .btn-download {
             background: linear-gradient(135deg, var(--primary-medium), var(--primary-dark));
             color: white;
-            box-shadow: 0 6px 18px rgba(26, 95, 35, 0.25);
+            box-shadow: 0 4px 12px rgba(26, 95, 35, 0.2);
             border: none;
         }
 
         .btn-download:hover {
             background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
             transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(26, 95, 35, 0.35);
+            box-shadow: 0 6px 16px rgba(26, 95, 35, 0.3);
         }
 
-        /* زر تصفح الكتاب (أبيض بحواف خضراء) */
+        /* زر تصفح الكتاب */
         .btn-browse {
             background: #ffffff;
             color: var(--primary-dark);
-            border: 2px solid var(--primary-dark);
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+            border: 1.5px solid var(--primary-dark);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
         .btn-browse:hover {
             background: var(--primary-dark);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 77, 38, 0.2);
+            box-shadow: 0 6px 16px rgba(0, 77, 38, 0.2);
         }
 
         .btn:active {
-            transform: scale(0.97);
+            transform: scale(0.96);
         }
 
         /* ---------- تذييل ---------- */
@@ -276,6 +307,7 @@
             padding: 6px 28px;
             border-radius: 40px;
             color: var(--text-medium);
+            border: 1px solid rgba(201, 168, 69, 0.3);
         }
 
         .badge-note i {
@@ -283,7 +315,7 @@
             color: var(--primary-medium);
         }
 
-        /* ---------- استجابة سلسة ---------- */
+        /* ---------- استجابة سلسة للهواتف ---------- */
         @media (max-width: 768px) {
             .site-title { font-size: 2.5rem; }
             .site-title::after { right: -25px; left: -25px; }
@@ -292,7 +324,6 @@
             .book-cover { flex: 0 0 auto; width: 100%; max-width: 280px; }
             .book-info .book-name { font-size: 1.9rem; }
             .book-description { font-size: 1.15rem; }
-            .btn { padding: 13px 22px; font-size: 1.15rem; }
             .book-card:hover { transform: none; }
             .book-card:hover .book-cover { transform: none; }
         }
@@ -305,8 +336,13 @@
             .book-cover { flex: 0 0 auto; width: 100%; max-width: 240px; }
             .book-info .book-name { font-size: 1.6rem; }
             .book-description { font-size: 1.1rem; }
-            .action-buttons { flex-direction: column; }
-            .btn { width: 100%; }
+            .action-buttons { flex-direction: row; gap: 10px; }
+            .btn { 
+                padding: 10px 14px; 
+                font-size: 0.95rem; 
+                border-radius: 10px; 
+                flex: 1; 
+            }
             .prayer { font-size: 1.2rem; }
         }
     </style>
@@ -330,9 +366,12 @@
             </div>
             <div class="book-info">
                 <div class="book-name">عن ماذا يتحدث هذا الكتاب ؟</div>
-               <p class="book-description">
-                 كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب أهل السنة  (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامرة محكمة، بدأت بعصيان أمر النبي صلى الله عليه وآله وسلم في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت عليهم السلام ، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
-
+                <p class="book-description">
+                 كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب أهل السنة  (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامرة محكمة، بدأت بعصيان أمر النبي في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.
+                </p>
+                <p class="book-description" id="b">
+                    <b>من الخميس إلى الجمعة<br>من رزية المنع إلى رزية الذبح</b>
+                </p>
                 
                 <!-- أزرار الإجراءات -->
                 <div class="action-buttons">
