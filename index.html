@@ -30,7 +30,6 @@
             --shadow-soft: 0 12px 30px -8px rgba(0, 40, 20, 0.18);
             --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
             --bloody-red: #8b0000;
-            --bloody-red-light: #b30000;
         }
 
         body {
@@ -48,7 +47,7 @@
             justify-content: center;
         }
 
-        /* ---------- أنيميشن دخول لطيف جداً ---------- */
+        /* ---------- أنيميشن دخول لطيف ---------- */
         @keyframes gentleFadeUp {
             from {
                 opacity: 0;
@@ -103,7 +102,7 @@
             100% { transform: scaleX(1); }
         }
 
-        /* ---------- بطاقة الكتاب مع زخرفة إسلامية ---------- */
+        /* ---------- بطاقة الكتاب ---------- */
         .book-card {
             background: var(--card-bg);
             border-radius: 28px;
@@ -115,7 +114,7 @@
             transition: transform 0.4s var(--transition-smooth), box-shadow 0.4s var(--transition-smooth);
         }
 
-        /* زوايا زخرفية إسلامية للبطاقة */
+        /* زوايا زخرفية إسلامية */
         .book-card::before, .book-card::after {
             content: "❖";
             position: absolute;
@@ -204,29 +203,25 @@
             text-align: justify;
         }
 
-        /* تأثير تحويم ناعم ولطيف للعبارة الدموية */
+        /* المربع الدموي المزين بشكل ثابت ودائم */
         #b {
             color: var(--bloody-red);
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             line-height: 1.6;
             margin-top: 15px;
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 12px;
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-
-        #b:hover {
-            color: var(--bloody-red-light);
-            text-shadow: 0 0 12px rgba(139, 0, 0, 0.25);
-            background: rgba(139, 0, 0, 0.03);
-            transform: translateY(-1px);
+            display: block;
+            padding: 12px 16px;
+            border-radius: 14px;
+            background: rgba(139, 0, 0, 0.04);
+            border: 1.5px solid rgba(139, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(139, 0, 0, 0.06);
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.15);
+            text-align: center;
         }
 
         /* ---------- شريط الأزرار ---------- */
         .action-buttons {
-            margin-top: 15px;
+            margin-top: 18px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
@@ -366,7 +361,7 @@
             </div>
             <div class="book-info">
                 <div class="book-name">عن ماذا يتحدث هذا الكتاب ؟</div>
-               <p class="book-description">
+                <p class="book-description">
                  كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب أهل السنة  (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامرة محكمة، بدأت بعصيان أمر النبي صلى الله عليه وآله وسلم في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت عليهم السلام ، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
 
 
