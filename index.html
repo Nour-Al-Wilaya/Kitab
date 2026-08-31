@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -9,10 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lateef:wght@400;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Preload مسبق لملف PDF لتسريع الفتح -->
-    <link rel="prefetch" href="من الخميس إلى الجمعة.pdf" as="document">
-    
     <style>
         /* ---------- إعادة تعيين و متغيرات ---------- */
         * {
@@ -182,9 +178,6 @@
             max-height: 480px;
             display: block;
             object-fit: contain;
-            /* تحسين تحميل الصورة */
-            loading: lazy;
-            decoding: async;
         }
 
         .book-info {
@@ -364,7 +357,7 @@
         </div>
         <div class="book-body">
             <div class="book-cover">
-                <img src="kitab.jpeg" alt="غلاف كتاب من الخميس إلى الجمعة" loading="lazy" decoding="async" />
+                <img src="kitab.jpeg" alt="غلاف كتاب من الخميس إلى الجمعة" />
             </div>
             <div class="book-info">
                 <div class="book-name">عن ماذا يتحدث هذا الكتاب ؟</div>
@@ -378,8 +371,7 @@
                     <a href="من الخميس إلى الجمعة.pdf" class="btn btn-download" download="من الخميس إلى الجمعة.pdf">
                         <i class="fas fa-download"></i> تحميل الكتاب
                     </a>
-                    <!-- تم إضافة onclick لتحسين تجربة فتح PDF -->
-                    <a href="من الخميس إلى الجمعة.pdf" class="btn btn-browse" target="_blank" rel="noopener noreferrer">
+                    <a href="من الخميس إلى الجمعة.pdf" class="btn btn-browse" target="_blank">
                         <i class="fas fa-book-open"></i> تصفح الكتاب
                     </a>
                 </div>
@@ -396,27 +388,6 @@
     </footer>
 
 </div>
-
-<!-- إضافة سكربت بسيط لتحسين استجابة زر التصفح -->
-<script>
-    (function() {
-        // تحسين تجربة فتح PDF عن طريق إظهار مؤشر تحميل فوري
-        const browseBtn = document.querySelector('.btn-browse');
-        if (browseBtn) {
-            browseBtn.addEventListener('click', function(e) {
-                // إضافة تأثير بصري فوري للإشارة إلى أن الطلب قيد المعالجة
-                this.style.opacity = '0.7';
-                this.style.transform = 'scale(0.97)';
-                
-                // إعادة المظهر بعد فترة قصيرة
-                setTimeout(() => {
-                    this.style.opacity = '1';
-                    this.style.transform = '';
-                }, 200);
-            });
-        }
-    })();
-</script>
 
 </body>
 </html>
