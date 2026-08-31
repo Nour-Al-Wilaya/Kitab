@@ -452,18 +452,18 @@
         fetch(pdfUrl, { cache: 'force-cache' }).catch(() => {});
     });
 
-    // 2. إظهار واجهة التحميل مباشرة عند الضغط، ثم فتح الملف المحمل
+    // 2. إظهار واجهة التحميل لمدة 7 ثوانٍ ثم فتح الملف
     btnBrowse.addEventListener('click', (e) => {
         e.preventDefault();
         
         // إظهار واجهة التحميل فوراً
         loaderOverlay.classList.add('active');
 
-        // فتح الكتاب بعد تأخير بسيط لإتاحة المجال للـ Loader بالظهور أولاً
+        // الانتظار لمدة 7 ثوانٍ (7000 مللي ثانية) ثم فتح الكتاب وإخفاء الـ Loader
         setTimeout(() => {
             window.open(pdfUrl, '_blank');
             loaderOverlay.classList.remove('active');
-        }, 300);
+        }, 7000);
     });
 
     // 3. التأكد من إخفاء واجهة التحميل عند العودة للصفحة
