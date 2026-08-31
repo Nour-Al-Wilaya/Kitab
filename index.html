@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lateef:wght@400;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- تحميل مسبق للملف لمنع ظهور الشاشة الرمادية -->
+    <!-- تحميل مسبق للملف في الخلفية فور فتح الموقع -->
     <link rel="prefetch" href="من الخميس إلى الجمعة.pdf" as="fetch">
 
     <style>
@@ -289,7 +289,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(4px);
             display: flex;
             flex-direction: column;
@@ -417,16 +417,16 @@
             <div class="book-info">
                 <div class="book-name">عن ماذا يتحدث هذا الكتاب ؟</div>
                 <p class="book-description">
-                 كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب أهل السنة  (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامر محكمة، بدأت بعصيان أمر النبي صلى الله عليه وآله وسلم في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت عليهم السلام ، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
+                 كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب أهل السنة  (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامرة محكمة، بدأت بعصيان أمر النبي صلى الله عليه وآله وسلم في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت عليهم السلام ، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
 
                 <!-- أزرار الإجراءات -->
                 <div class="action-buttons">
                     <a href="من الخميس إلى الجمعة.pdf" class="btn btn-download" download="من الخميس إلى الجمعة.pdf">
                         <i class="fas fa-download"></i> تحميل الكتاب
                     </a>
-                    <a href="من الخميس إلى الجمعة.pdf" class="btn btn-browse" id="btnBrowse" target="_blank">
+                    <button type="button" class="btn btn-browse" id="btnBrowse">
                         <i class="fas fa-book-open"></i> تصفح الكتاب
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -447,20 +447,26 @@
     const btnBrowse = document.getElementById('btnBrowse');
     const loaderOverlay = document.getElementById('loaderOverlay');
 
-    // 1. جلب تلقائي في الذاكرة لتسريع الفتح بـ Cache
+    // 1. التحميل التلقائي للملف في الخلفية فور فتح الصفحة
     window.addEventListener('DOMContentLoaded', () => {
         fetch(pdfUrl, { cache: 'force-cache' }).catch(() => {});
     });
 
-    // 2. إظهار واجهة التحميل مؤقتاً وإخفاؤها مباشرة بعد إطلاق نافذة الـ PDF
-    btnBrowse.addEventListener('click', () => {
+    // 2. إظهار واجهة التحميل مباشرة عند الضغط، ثم فتح الملف المحمل
+    btnBrowse.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // إظهار واجهة التحميل فوراً
         loaderOverlay.classList.add('active');
+
+        // فتح الكتاب بعد تأخير بسيط لإتاحة المجال للـ Loader بالظهور أولاً
         setTimeout(() => {
+            window.open(pdfUrl, '_blank');
             loaderOverlay.classList.remove('active');
-        }, 500);
+        }, 300);
     });
 
-    // 3. إخفاء واجهة التحميل فور العودة إلى الصفحة (سواء عبر زر الرجوع أو تغيير التبويب)
+    // 3. التأكد من إخفاء واجهة التحميل عند العودة للصفحة
     window.addEventListener('pageshow', () => {
         loaderOverlay.classList.remove('active');
     });
