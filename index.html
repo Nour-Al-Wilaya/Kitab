@@ -9,10 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lateef:wght@400;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- تحميل مسبق للملف في الخلفية فور فتح الموقع -->
-    <link rel="prefetch" href="من الخميس إلى الجمعة.pdf" as="fetch">
-
     <style>
         /* ---------- إعادة تعيين و متغيرات ---------- */
         * {
@@ -282,51 +278,6 @@
             transform: scale(0.96);
         }
 
-        /* ---------- واجهة التحميل (Overlay Loader) ---------- */
-        .loader-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(4px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
-        }
-
-        .loader-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(0, 77, 38, 0.1);
-            border-top: 4px solid var(--primary-dark);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loader-text {
-            margin-top: 16px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-        }
-
         /* ---------- تذييل ---------- */
         footer {
             text-align: center;
@@ -393,12 +344,6 @@
 </head>
 <body>
 
-<!-- واجهة التحميل -->
-<div class="loader-overlay" id="loaderOverlay">
-    <div class="spinner"></div>
-    <div class="loader-text">جاري فتح الكتاب...</div>
-</div>
-
 <div class="container" id="main-content">
 
     <header>
@@ -419,14 +364,16 @@
                 <p class="book-description">
                  كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب أهل السنة  (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامرة محكمة، بدأت بعصيان أمر النبي صلى الله عليه وآله وسلم في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت عليهم السلام ، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
 
+
+                
                 <!-- أزرار الإجراءات -->
                 <div class="action-buttons">
                     <a href="من الخميس إلى الجمعة.pdf" class="btn btn-download" download="من الخميس إلى الجمعة.pdf">
                         <i class="fas fa-download"></i> تحميل الكتاب
                     </a>
-                    <button type="button" class="btn btn-browse" id="btnBrowse">
+                    <a href="من الخميس إلى الجمعة.pdf" class="btn btn-browse" target="_blank">
                         <i class="fas fa-book-open"></i> تصفح الكتاب
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -441,36 +388,6 @@
     </footer>
 
 </div>
-
-<script>
-    const pdfUrl = "من الخميس إلى الجمعة.pdf";
-    const btnBrowse = document.getElementById('btnBrowse');
-    const loaderOverlay = document.getElementById('loaderOverlay');
-
-    // 1. التحميل التلقائي للملف في الخلفية فور فتح الصفحة
-    window.addEventListener('DOMContentLoaded', () => {
-        fetch(pdfUrl, { cache: 'force-cache' }).catch(() => {});
-    });
-
-    // 2. إظهار واجهة التحميل لمدة 7 ثوانٍ ثم فتح الملف
-    btnBrowse.addEventListener('click', (e) => {
-        e.preventDefault();
-        
-        // إظهار واجهة التحميل فوراً
-        loaderOverlay.classList.add('active');
-
-        // الانتظار لمدة 7 ثوانٍ (7000 مللي ثانية) ثم فتح الكتاب وإخفاء الـ Loader
-        setTimeout(() => {
-            window.open(pdfUrl, '_blank');
-            loaderOverlay.classList.remove('active');
-        }, 7000);
-    });
-
-    // 3. التأكد من إخفاء واجهة التحميل عند العودة للصفحة
-    window.addEventListener('pageshow', () => {
-        loaderOverlay.classList.remove('active');
-    });
-</script>
 
 </body>
 </html>
