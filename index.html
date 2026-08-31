@@ -9,10 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lateef:wght@400;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- ميزة التنزيل المسبق في الخلفية عبر المتصفح -->
-    <link rel="prefetch" href="من الخميس إلى الجمعة.pdf" as="fetch">
-
     <style>
         /* ---------- إعادة تعيين و متغيرات ---------- */
         * {
@@ -365,8 +361,11 @@
             </div>
             <div class="book-info">
                 <div class="book-name">عن ماذا يتحدث هذا الكتاب ؟</div>
-               <p class="book-description">
+                <p class="book-description">
                  كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب أهل السنة  (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامرة محكمة، بدأت بعصيان أمر النبي صلى الله عليه وآله وسلم في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت عليهم السلام ، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
+
+
+                
                 <!-- أزرار الإجراءات -->
                 <div class="action-buttons">
                     <a href="من الخميس إلى الجمعة.pdf" class="btn btn-download" download="من الخميس إلى الجمعة.pdf">
@@ -389,13 +388,6 @@
     </footer>
 
 </div>
-
-<!-- السكربت المسؤول عن التنزيل الصامت في الخلفية -->
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-        fetch('من الخميس إلى الجمعة.pdf', { cache: 'force-cache' }).catch(() => {});
-    });
-</script>
 
 </body>
 </html>
