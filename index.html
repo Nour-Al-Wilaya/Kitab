@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نور الولاية · كتاب من الخميس إلى الجمعة</title>
+    <!-- خطوط أنيقة + أيقونات -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lateef:wght@400;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- تحميل مسبق للملف لمنع ظهور الشاشة الرمادية -->
+    <link rel="prefetch" href="من الخميس إلى الجمعة.pdf" as="fetch">
+
     <style>
         /* ---------- إعادة تعيين و متغيرات ---------- */
         * {
@@ -293,7 +298,7 @@
             z-index: 9999;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.2s ease;
         }
 
         .loader-overlay.active {
@@ -388,6 +393,7 @@
 </head>
 <body>
 
+<!-- واجهة التحميل -->
 <div class="loader-overlay" id="loaderOverlay">
     <div class="spinner"></div>
     <div class="loader-text">جاري فتح الكتاب...</div>
@@ -399,6 +405,7 @@
         <h1 class="site-title">نور الولاية</h1>
     </header>
 
+    <!-- بطاقة الكتاب الرئيسية -->
     <div class="book-card">
         <div class="book-header">
             <h2>من الخميس إلى الجمعة</h2>
@@ -410,8 +417,9 @@
             <div class="book-info">
                 <div class="book-name">عن ماذا يتحدث هذا الكتاب ؟</div>
                 <p class="book-description">
-                 كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب أهل السنة  (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامرة محكمة، بدأت بعصيان أمر النبي صلى الله عليه وآله وسلم في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت عليهم السلام ، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
+                 كتاب من الخميس الى الجمعة هو بحث تاريخي–عقائدي يستعرض وقائع مؤلمة ومفصلية في التاريخ الإسلامي، تمتد من يوم الخميس الذي شهد "رزية الدواة والكتف" في أواخر حياة النبي الأعظم صلى الله عليه وآله وسلم، وصولًا إلى فاجعة استشهاد الإمام الحسين عليه السلام يوم الجمعة في كربلاء. <br>يرتكز المؤلِّف على روايات صحيحة ومعتبرة في كتب أهل السنة  (البخاري، مسلم، وغيرها) ليكشف عن خيوط مؤامر محكمة، بدأت بعصيان أمر النبي صلى الله عليه وآله وسلم في لحظاته الأخيرة، وتطورت إلى محاولة التغيير على وصاياه، ثم انتهت باغتصاب الخلافة من أهل البيت عليهم السلام ، وتهميش وصاياهم، وإقصائهم عن قيادة الأمة.</p><p class="book-description" id="b"><b>من الخميس إلى الجمعة</b><br><b>من رزية المنع إلى رزية الذبح</b></p>
 
+                <!-- أزرار الإجراءات -->
                 <div class="action-buttons">
                     <a href="من الخميس إلى الجمعة.pdf" class="btn btn-download" download="من الخميس إلى الجمعة.pdf">
                         <i class="fas fa-download"></i> تحميل الكتاب
@@ -439,17 +447,22 @@
     const btnBrowse = document.getElementById('btnBrowse');
     const loaderOverlay = document.getElementById('loaderOverlay');
 
-    // 1. التحميل التلقائي للملف في الخلفية عند فتح الصفحة
+    // 1. جلب تلقائي في الذاكرة لتسريع الفتح بـ Cache
     window.addEventListener('DOMContentLoaded', () => {
         fetch(pdfUrl, { cache: 'force-cache' }).catch(() => {});
     });
 
-    // 2. إظهار واجهة التحميل عند الضغط على زر التصفح
+    // 2. إظهار واجهة التحميل مؤقتاً وإخفاؤها مباشرة بعد إطلاق نافذة الـ PDF
     btnBrowse.addEventListener('click', () => {
         loaderOverlay.classList.add('active');
         setTimeout(() => {
             loaderOverlay.classList.remove('active');
-        }, 1200);
+        }, 500);
+    });
+
+    // 3. إخفاء واجهة التحميل فور العودة إلى الصفحة (سواء عبر زر الرجوع أو تغيير التبويب)
+    window.addEventListener('pageshow', () => {
+        loaderOverlay.classList.remove('active');
     });
 </script>
 
